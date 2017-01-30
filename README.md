@@ -4,7 +4,7 @@ This project aims at developing different VM schedulers for a given IaaS cloud. 
 
 The implementation and the evaluation will be made over the IaaS cloud simulator [CloudSim](http://www.cloudbus.org/cloudsim/). The simulator will replay a workload extracted from Emulab, on a datacenter having realistic characteristics. 
 
-#### Some usefull resources:
+#### Some useful resources:
 
 - CloudSim [FAQ](https://code.google.com/p/cloudsim/wiki/FAQ#Policies_and_algorithms)
 - CloudSim [API](http://www.cloudbus.org/cloudsim/doc/api/index.html)
