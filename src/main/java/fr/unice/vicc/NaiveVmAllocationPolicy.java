@@ -3,7 +3,6 @@ package fr.unice.vicc;
 import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
-import org.cloudbus.cloudsim.power.PowerHost;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Map;
 public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     /** The map to track the server that host each running VM. */
-    private Map<Vm,Host> hoster;
+    private Map<String, Host> hoster;
 
     public NaiveVmAllocationPolicy(List<? extends Host> list) {
         super(list);
@@ -30,30 +29,42 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
+
         return null;
     }
 
     @Override
-    public boolean allocateHostForVm(Vm vm) {        
+    public boolean allocateHostForVm(Vm vm) {
+        for (Host host : getHostList()){
+            if(host.vmCreate(vm)) {
+                hoster.put(vm.getUid().toString(), host);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
+        if(host.vmCreate(vm)) {
+            hoster.put(vm.getUid().toString(), host);
+            return true;
+        }
         return false;
     }
 
     @Override
     public void deallocateHostForVm(Vm vm) {
+       hoster.get(vm.getUid()).vmDestroy(vm);
     }
 
     @Override
     public Host getHost(Vm vm) {
-        return null;
+        return vm.getHost();
     }
 
     @Override
     public Host getHost(int vmId, int userId) {
-        return null;
+        return hoster.get(Vm.getUid(userId, vmId));
     }
 }
