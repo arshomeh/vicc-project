@@ -5,6 +5,8 @@ import java.util.List;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
+import static java.net.SocketPermission.getHost;
+
 /**
  * @author Fabien Hermenier
  */
@@ -19,6 +21,7 @@ public class VmAllocationPolicyFactory {
     VmAllocationPolicy make(String id, List<PowerHost> hosts) {
         switch (id) {
             case "naive":  return new NaiveVmAllocationPolicy(hosts);
+            case "antiAffinity":  return new AntiAffinityeVmAllocationPolicy(hosts);
         }
         throw new IllegalArgumentException("No such policy '" + id + "'");
     }
