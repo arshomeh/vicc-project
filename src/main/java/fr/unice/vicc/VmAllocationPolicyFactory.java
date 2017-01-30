@@ -5,7 +5,6 @@ import java.util.List;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
-import static java.net.SocketPermission.getHost;
 
 /**
  * @author Fabien Hermenier
