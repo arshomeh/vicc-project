@@ -1,9 +1,9 @@
 package fr.unice.vicc;
 
+import java.util.List;
+
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
-
-import java.util.List;
 
 /**
  * @author Fabien Hermenier
@@ -17,7 +17,6 @@ public class VmAllocationPolicyFactory {
      * @return the selected algorithm
      */
     VmAllocationPolicy make(String id, List<PowerHost> hosts) {
-//        System.out.println(5);
         switch (id) {
             case "naive":  return new NaiveVmAllocationPolicy(hosts);
         }
