@@ -17,7 +17,7 @@ public class VmAllocationPolicyFactory {
      * @return the selected algorithm
      */
     VmAllocationPolicy make(String id, List<PowerHost> hosts) {
-
+//        System.out.println(5);
         switch (id) {
             case "naive":  return new NaiveVmAllocationPolicy(hosts);
         }
