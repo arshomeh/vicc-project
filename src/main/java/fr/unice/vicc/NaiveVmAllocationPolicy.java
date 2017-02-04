@@ -19,12 +19,14 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     private Map<Vm, Host> hoster;
 
     public NaiveVmAllocationPolicy(List<? extends Host> list) {
+
         super(list);
         hoster =new HashMap<>();
     }
 
     @Override
     protected void setHostList(List<? extends Host> hostList) {
+
         super.setHostList(hostList);
         hoster = new HashMap<>();
     }
@@ -37,6 +39,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
+
         for (Host host : getHostList()){
             if(host.vmCreate(vm)) {
                 hoster.put(vm, host);
@@ -48,6 +51,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
+
         if(host.vmCreate(vm)) {
             hoster.put(vm, host);
             return true;
@@ -57,12 +61,14 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public void deallocateHostForVm(Vm vm) {
+
         hoster.get(vm).vmDestroy(vm);
         hoster.remove(vm);
     }
 
     @Override
     public Host getHost(Vm vm) {
+
         return vm.getHost();
     }
 
