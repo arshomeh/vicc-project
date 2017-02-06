@@ -16,20 +16,20 @@ import java.util.Map;
  * Design choice: ... 
  * Worst-case temporal complexity: ...
  */
-public class AntiAffinityeVmAllocationPolicy extends VmAllocationPolicy {
+public class AntiAffinityVmAllocationPolicy extends VmAllocationPolicy {
 
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
 
-    public AntiAffinityeVmAllocationPolicy(List<PowerHost> hosts) {
+    public AntiAffinityVmAllocationPolicy(List<PowerHost> hosts) {
 
         super(hosts);
-        hoster =new HashMap<>();
+        hoster = new HashMap<>();
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-
+    	// no two hosts from the same interval have to be allocated to the same VM 
         for (Host host : getHostList()){
             if(host.vmCreate(vm)) {
                 hoster.put(vm, host);
@@ -58,8 +58,9 @@ public class AntiAffinityeVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public void deallocateHostForVm(Vm vm) {
 
-        hoster.get(vm).vmDestroy(vm);
-        hoster.remove(vm);
+    	Host toRemove = vm.getHost();
+    	toRemove.vmDestroy(vm);
+    	hoster.remove(vm, toRemove);
     }
 
     @Override

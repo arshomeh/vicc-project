@@ -5,7 +5,7 @@ import java.util.List;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
-import fr.unice.vicc.scheduler.AntiAffinityeVmAllocationPolicy;
+import fr.unice.vicc.scheduler.AntiAffinityVmAllocationPolicy;
 import fr.unice.vicc.scheduler.FaultToleranceVmAllocationPolicy;
 import fr.unice.vicc.scheduler.NaiveVmAllocationPolicy;
 
@@ -24,7 +24,7 @@ public class VmAllocationPolicyFactory {
     VmAllocationPolicy make(String id, List<PowerHost> hosts) {
         switch (id) {
             case "naive":  return new NaiveVmAllocationPolicy(hosts);
-            case "antiAffinity":  return new AntiAffinityeVmAllocationPolicy(hosts);
+            case "antiAffinity":  return new AntiAffinityVmAllocationPolicy(hosts);
             case "ft": return new FaultToleranceVmAllocationPolicy(hosts);
         }
         throw new IllegalArgumentException("No such policy '" + id + "'");
