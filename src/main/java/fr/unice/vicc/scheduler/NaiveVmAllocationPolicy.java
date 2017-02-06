@@ -67,7 +67,9 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public void deallocateHostForVm(Vm vm) {
 
-    	vm.getHost().vmDestroy(vm);
+    	Host toRemove = vm.getHost();
+    	toRemove.vmDestroy(vm);
+    	hoster.remove(vm, toRemove);
     }
 
     @Override
