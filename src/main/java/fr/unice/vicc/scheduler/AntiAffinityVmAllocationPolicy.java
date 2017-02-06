@@ -1,6 +1,7 @@
 package fr.unice.vicc.scheduler;
 
 import org.cloudbus.cloudsim.Host;
+import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
@@ -20,8 +21,9 @@ public class AntiAffinityVmAllocationPolicy extends VmAllocationPolicy {
 
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
+    private final static int interval = 100;
 
-    public AntiAffinityVmAllocationPolicy(List<PowerHost> hosts) {
+    public AntiAffinityVmAllocationPolicy(List<? extends Host> hosts) {
 
         super(hosts);
         hoster = new HashMap<>();
@@ -29,20 +31,24 @@ public class AntiAffinityVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-    	// no two hosts from the same interval have to be allocated to the same VM 
-        for (Host host : getHostList()){
-            if(host.vmCreate(vm)) {
+    	// no two hosts from the same interval have to be allocated to the same VM
+        int value = vm.getId()% interval;
+        Host host = getHostList().get(value);
+        System.out.println("VM " + vm.getId() + " in host " + host.getId());
+        if(host != null && host.vmCreate(vm)) {
                 hoster.put(vm, host);
                 return true;
             }
-        }
         return false;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
 
-        if(host.vmCreate(vm)) {
+        int value = vm.getId()% interval;
+        System.out.println("VM " + vm.getId() + " in host " + host.getId());
+
+        if(host.getId() == value && host.vmCreate(vm)) {
             hoster.put(vm, host);
             return true;
         }
