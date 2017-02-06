@@ -41,11 +41,12 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-    	// the first host in the host list having enough resources will be the one allocated
+        Log.enable();
+        // the first host in the host list having enough resources will be the one allocated
         for (Host host : getHostList()) {
             if(host.vmCreate(vm)) {
                 hoster.put(vm, host);
-                Log.print("VM " + host.getId() + " allocated");
+                System.out.println("VM " + host.getId() + " allocated");
                 return true;
             }
         }

@@ -2,6 +2,7 @@ package fr.unice.vicc;
 
 import java.util.List;
 
+import fr.unice.vicc.scheduler.AntiAffinityVmAllocationPolicy;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
