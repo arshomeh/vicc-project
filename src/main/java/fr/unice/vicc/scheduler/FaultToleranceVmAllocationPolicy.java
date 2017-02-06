@@ -1,4 +1,4 @@
-package fr.unice.vicc;
+package fr.unice.vicc.scheduler;
 
 import java.util.List;
 import java.util.Map;

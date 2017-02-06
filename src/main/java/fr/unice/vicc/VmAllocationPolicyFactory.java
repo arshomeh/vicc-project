@@ -5,6 +5,10 @@ import java.util.List;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
+import fr.unice.vicc.scheduler.AntiAffinityeVmAllocationPolicy;
+import fr.unice.vicc.scheduler.FaultToleranceVmAllocationPolicy;
+import fr.unice.vicc.scheduler.NaiveVmAllocationPolicy;
+
 
 /**
  * @author Fabien Hermenier

@@ -1,26 +1,40 @@
-package fr.unice.vicc;
+package fr.unice.vicc.scheduler;
 
 import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
-import org.cloudbus.cloudsim.power.PowerHost;
+import org.cloudbus.cloudsim.VmSchedulerTimeShared;
+import sun.misc.VM;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by arsha on 30-Jan-17.
+ * Created by fhermeni2 on 16/11/2015.
  */
-public class AntiAffinityeVmAllocationPolicy extends VmAllocationPolicy {
+public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
 
-    public AntiAffinityeVmAllocationPolicy(List<PowerHost> hosts) {
+    public NaiveVmAllocationPolicy(List<? extends Host> list) {
 
-        super(hosts);
+        super(list);
         hoster =new HashMap<>();
+    }
+
+    @Override
+    protected void setHostList(List<? extends Host> hostList) {
+
+        super.setHostList(hostList);
+        hoster = new HashMap<>();
+    }
+
+    @Override
+    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
+
+        return null;
     }
 
     @Override
@@ -43,12 +57,6 @@ public class AntiAffinityeVmAllocationPolicy extends VmAllocationPolicy {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
-
-        return null;
     }
 
     @Override
