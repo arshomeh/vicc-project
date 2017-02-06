@@ -21,7 +21,7 @@ public class AntiAffinityVmAllocationPolicy extends VmAllocationPolicy {
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
 
-    public AntiAffinityVmAllocationPolicy(List<PowerHost> hosts) {
+    public AntiAffinityVmAllocationPolicy(List<? extends Host> hosts) {
 
         super(hosts);
         hoster = new HashMap<>();

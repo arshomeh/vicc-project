@@ -16,8 +16,8 @@ import org.cloudbus.cloudsim.VmAllocationPolicy;
  */
 public class FaultToleranceVmAllocationPolicy extends VmAllocationPolicy {
 
-	public FaultToleranceVmAllocationPolicy(List<? extends Host> list) {
-		super(list);
+	public FaultToleranceVmAllocationPolicy(List<? extends Host> hosts) {
+		super(hosts);
 	}
 
 	@Override
