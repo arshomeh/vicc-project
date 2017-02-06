@@ -1,9 +1,11 @@
 package fr.unice.vicc.scheduler;
 
 import org.cloudbus.cloudsim.Host;
+import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.VmSchedulerTimeShared;
+
 import sun.misc.VM;
 
 import java.util.HashMap;
@@ -21,7 +23,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     public NaiveVmAllocationPolicy(List<? extends Host> list) {
 
         super(list);
-        hoster =new HashMap<>();
+        hoster = new HashMap<>();
     }
 
     @Override
@@ -33,19 +35,22 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
-
+    	// no optimizations in the naive allocation
         return null;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-
-        for (Host host : getHostList()){
+    	// the first host in the host list having enough resources will be the one allocated
+        for (Host host : getHostList()) {
             if(host.vmCreate(vm)) {
                 hoster.put(vm, host);
+                Log.print("VM " + host.getId() + " allocated");
                 return true;
             }
         }
+        
+        // no appropriate host found!
         return false;
     }
 
@@ -62,8 +67,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public void deallocateHostForVm(Vm vm) {
 
-        hoster.get(vm).vmDestroy(vm);
-        hoster.remove(vm);
+    	vm.getHost().vmDestroy(vm);
     }
 
     @Override

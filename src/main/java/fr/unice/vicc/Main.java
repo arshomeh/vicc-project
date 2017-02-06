@@ -17,7 +17,7 @@ import java.util.Arrays;
  * Entry point of the project.
  * It just initialises the simulator, create the right scheduling algorithm and runs the simulation.
  *
-    * Nothing to edit on your side.
+ * Nothing to edit on your side.
  * @author Fabien Hermenier
  */
 public class Main {

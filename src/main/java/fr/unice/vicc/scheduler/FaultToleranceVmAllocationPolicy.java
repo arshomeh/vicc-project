@@ -9,6 +9,10 @@ import org.cloudbus.cloudsim.VmAllocationPolicy;
 
 /**
  * Created by Leila K. on 01/02/2017.
+ * 
+ * Scheduler purpose: ...
+ * Design choice: ... 
+ * Worst-case temporal complexity: ...
  */
 public class FaultToleranceVmAllocationPolicy extends VmAllocationPolicy {
 

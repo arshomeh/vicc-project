@@ -11,6 +11,10 @@ import java.util.Map;
 
 /**
  * Created by arsha on 30-Jan-17.
+ * 
+ * Scheduler purpose: ...
+ * Design choice: ... 
+ * Worst-case temporal complexity: ...
  */
 public class AntiAffinityeVmAllocationPolicy extends VmAllocationPolicy {
 
