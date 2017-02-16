@@ -12,8 +12,8 @@ public class HostCompare implements Comparator<Host>{
         double cpu1 = h1.getAvailableMips();
         double cpu2 = h2.getAvailableMips();
 
-        double ram1 = h1.getRam();
-        double ram2 = h2.getRam();
+        double ram1 = h1.getRamProvisioner().getAvailableRam();
+        double ram2 = h2.getRamProvisioner().getAvailableRam();
 
         double x = 0.7;
         double y = 0.3;
