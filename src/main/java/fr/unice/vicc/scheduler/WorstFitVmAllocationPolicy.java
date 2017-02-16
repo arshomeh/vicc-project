@@ -1,26 +1,23 @@
 package fr.unice.vicc.scheduler;
 
+import fr.unice.vicc.HostCompare;
 import org.cloudbus.cloudsim.Host;
-import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
-import org.cloudbus.cloudsim.VmSchedulerTimeShared;
-
-import sun.misc.VM;
-
+import org.cloudbus.cloudsim.power.PowerHost;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by fhermeni2 on 16/11/2015.
+ * Created by arsha on 16-Feb-17.
  */
-public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
+public class WorstFitVmAllocationPolicy extends VmAllocationPolicy {
 
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
 
-    public NaiveVmAllocationPolicy(List<? extends Host> list) {
+    public WorstFitVmAllocationPolicy(List<? extends Host> list) {
 
         super(list);
         hoster = new HashMap<>();
@@ -35,21 +32,24 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
-    	// no optimizations in the naive allocation
+        // no optimizations in the naive allocation
         return null;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-        // the first host in the host list having enough resources will be the one allocated
-        for (Host host : getHostList()) {
-            if(host.vmCreate(vm)) {
-                hoster.put(vm, host);
-                System.out.println("VM " + host.getId() + " allocated");
-                return true;
-            }
-        }
-        
+    List<Host> host = getHostList();
+    host.sort(new HostCompare());
+    Host best = host.get(0);
+        host.get(0).getAvailableMips();
+        host.get(0).getRam();
+    if(best.vmCreate(vm)) {
+        hoster.put(vm, best);
+//        System.out.println("VM " + best.getId() + " allocated");
+        return true;
+    }
+
+
         // no appropriate host found!
         return false;
     }
@@ -67,9 +67,9 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public void deallocateHostForVm(Vm vm) {
 
-    	Host toRemove = vm.getHost();
-    	toRemove.vmDestroy(vm);
-    	hoster.remove(vm, toRemove);
+        Host toRemove = vm.getHost();
+        toRemove.vmDestroy(vm);
+        hoster.remove(vm, toRemove);
     }
 
     @Override
