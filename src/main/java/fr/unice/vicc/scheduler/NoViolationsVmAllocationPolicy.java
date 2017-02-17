@@ -14,8 +14,8 @@ import java.util.Map;
  * 
  * Scheduler purpose: the aim is to always give clients the desired MIPS so as not to incur
  * 		in SLAs violations and subsequent penalties.
- * Design choice: ...
- * Worst-case temporal complexity: ...
+ * Design choice: Before allocation we check that host has enough MIPS 
+ * Worst-case temporal complexity: the allocation takes O(n) time complexity where n - number of hosts 
  */
 public class NoViolationsVmAllocationPolicy extends VmAllocationPolicy {
     
