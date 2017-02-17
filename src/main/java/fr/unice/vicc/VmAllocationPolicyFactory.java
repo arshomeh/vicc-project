@@ -2,14 +2,12 @@ package fr.unice.vicc;
 
 import java.util.List;
 
-import fr.unice.vicc.scheduler.AntiAffinityVmAllocationPolicy;
+import fr.unice.vicc.scheduler.*;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
 import fr.unice.vicc.scheduler.AntiAffinityVmAllocationPolicy;
-import fr.unice.vicc.scheduler.DisasterRecoveryVmAllocationPolicty;
-import fr.unice.vicc.scheduler.FaultToleranceVmAllocationPolicy;
-import fr.unice.vicc.scheduler.NaiveVmAllocationPolicy;
+//import fr.unice.vicc.scheduler.DisasterRecoveryVmAllocationPolicty;
 
 
 /**
@@ -28,7 +26,9 @@ public class VmAllocationPolicyFactory {
             case "naive":  return new NaiveVmAllocationPolicy(hosts);
             case "antiAffinity":  return new AntiAffinityVmAllocationPolicy(hosts);
             case "ft": return new FaultToleranceVmAllocationPolicy(hosts);
-            case "dr": return new DisasterRecoveryVmAllocationPolicty(hosts);
+            case "nextFit": return new NextFitVmAllocationPolicy(hosts);
+            case "worstFit": return new WorstFitVmAllocationPolicy(hosts);
+//            case "dr": return new DisasterRecoveryVmAllocationPolicty(hosts);
         }
         throw new IllegalArgumentException("No such policy '" + id + "'");
     }

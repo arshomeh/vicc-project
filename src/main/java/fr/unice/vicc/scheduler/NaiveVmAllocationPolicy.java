@@ -41,55 +41,47 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-        Log.print(String.format("Trying to allocate VM %d", vm.getId()));
-    	
-        // check if the host can create the VM
+        // the first host in the host list having enough resources will be the one allocated
         for (Host host : getHostList()) {
             if(host.vmCreate(vm)) {
                 hoster.put(vm, host);
-//                System.out.println(String.format("[+] Put VM %d in host %d", vm.getId(), host.getId()));
+                System.out.println("VM " + host.getId() + " allocated");
                 return true;
             }
         }
         
-        // no appropriate host found
-        System.err.println(String.format("[-] Cannot allocate VM %d", vm.getId()));
+        // no appropriate host found!
         return false;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
-        Log.print(
-        		String.format("Trying to allocate VM %d in host %d",
-        				vm.getId(),
-        				host.getId()));
 
         if(host.vmCreate(vm)) {
             hoster.put(vm, host);
-            System.out.println(String.format("[+] Allocated VM %d in host %d", vm.getId(), host.getId()));
             return true;
         }
-        
-        // no appropriate host found
-        System.err.println(String.format("[-] Cannot allocate VM %d on host %d", vm.getId(), host.getId()));
         return false;
     }
 
     @Override
     public void deallocateHostForVm(Vm vm) {
-    	Host hostToRemove = vm.getHost();
-    	hostToRemove.vmDestroy(vm);
-    	hoster.remove(vm, hostToRemove);
+
+    	Host toRemove = vm.getHost();
+    	toRemove.vmDestroy(vm);
+    	hoster.remove(vm, toRemove);
     }
 
     @Override
     public Host getHost(Vm vm) {
+
         return vm.getHost();
     }
 
     @Override
     public Host getHost(int vmId, int userId) {
-        for (Host h: getHostList()) {
+
+        for (Host h: getHostList()){
             if (h.getVm(vmId,userId) != null){
                 return h;
             }
