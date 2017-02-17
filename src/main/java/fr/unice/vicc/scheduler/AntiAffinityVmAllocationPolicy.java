@@ -13,11 +13,14 @@ import java.util.Map;
 /**
  * Created by arsha on 30-Jan-17.
  * 
- * Scheduler purpose: VMs are placed into different hosts with regards to their affinity. In
- * 		particular, two VMs whose ID belongs to the same hundred will be placed on different
- * 		physical hosts.
+ * Scheduler purpose: for fault tolerance reasons VMs are placed into different hosts with regards
+ * 		to their affinity. In particular, two VMs whose ID belongs to the same hundred will be placed
+ * 		on different physical hosts. The implication of this desired property on the cluster hosting
+ * 		capacity is that we need at least a number of hosts equal to the desired anti-affinity interval
+ * 		(say, 100) so that all the VMs can be allocated somewhere.
  * Design choice: the anti-affinity property is guaranteed by the modulo operation that let
- * 		us (try to) allocate a VM in a host
+ * 		us (try to) allocate a VM in the host with ID equal to the VM ID modulo the interval value
+ * 		(e.g. modulo 100; for instance the VM with ID 315 will be allocated into the host with ID 15).
  * Worst-case temporal complexity: ...
  */
 public class AntiAffinityVmAllocationPolicy extends VmAllocationPolicy {

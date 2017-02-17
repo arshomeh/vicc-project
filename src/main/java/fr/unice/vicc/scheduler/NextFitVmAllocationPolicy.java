@@ -25,83 +25,83 @@ import java.util.Map;
  */
 public class NextFitVmAllocationPolicy extends VmAllocationPolicy {
 
-    /**
-     * The map to track the server that host each running VM.
-     */
+	/** Global variable referring to the last checked host ID. */
+    int startFrom;
+    
+    /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
-    int i;
 
-    public NextFitVmAllocationPolicy(List<? extends Host> list) {
-
-        super(list);
+    public NextFitVmAllocationPolicy(List<? extends Host> hosts) {
+        super(hosts);
         hoster = new HashMap<>();
-        i = 0;
+        startFrom = 0;
     }
 
     @Override
     protected void setHostList(List<? extends Host> hostList) {
-
         super.setHostList(hostList);
         hoster = new HashMap<>();
     }
 
     @Override
-    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
-        // no optimizations in the naive allocation
+    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> hosts) {
+        // no optimizations here
         return null;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-
-        int last = i;
-        while (i < getHostList().size() || i == last - 1) {
-            Host host = getHostList().get(i);
+        int last = startFrom;
+        while (startFrom < getHostList().size() || startFrom == last - 1) {
+            Host host = getHostList().get(startFrom);
             if (host.vmCreate(vm)) {
                 hoster.put(vm, host);
 //                System.out.println("VM " + host.getId() + " allocated");
                 return true;
             }
-            i++;
-            if (i >= getHostList().size())
-                i = 0;
+            startFrom++;
+            
+            // check if we have to start again from host ID = 0
+            if (startFrom >= getHostList().size())
+                startFrom = 0;
         }
+        
         // no appropriate host found!
         return false;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
-
+    	// simply (try to) allocate the VM in the given host
         if (host.vmCreate(vm)) {
             hoster.put(vm, host);
             return true;
         }
+        
         return false;
     }
 
     @Override
     public void deallocateHostForVm(Vm vm) {
-
-        Host toRemove = vm.getHost();
-        toRemove.vmDestroy(vm);
-        hoster.remove(vm, toRemove);
+        Host hostToRemove = vm.getHost();
+        hostToRemove.vmDestroy(vm);
+        hoster.remove(vm, hostToRemove);
     }
 
     @Override
     public Host getHost(Vm vm) {
-
         return vm.getHost();
     }
 
     @Override
     public Host getHost(int vmId, int userId) {
-
         for (Host h : getHostList()) {
             if (h.getVm(vmId, userId) != null) {
                 return h;
             }
         }
+        
+        // no such host
         return null;
     }
 }
