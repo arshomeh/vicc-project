@@ -11,6 +11,14 @@ import java.util.Map;
 
 /**
  * Created by arsha on 16-Feb-17.
+ * 
+ * Scheduler purpose: the aim of this scheduler is to allocate new VMs into (one of) the
+ * 		hosts with the highest remaining free resources. In this case the dimensions considered
+ * 		for ranking the available free resources are the MIPS and the RAM of the machines.
+ * Design choice: in order to consider the two dimensions at the same time, the metric we used
+ * 		is to consider a linear combination of the two dimensions but to give more weight to the
+ * 		host's available CPU than to available memory, as implemented in {@link HostCompare#compare} class. 
+ * Worst-case temporal complexity: ...
  */
 public class WorstFitVmAllocationPolicy extends VmAllocationPolicy {
 

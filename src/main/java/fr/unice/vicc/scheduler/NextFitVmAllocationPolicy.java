@@ -11,6 +11,17 @@ import java.util.Map;
 
 /**
  * Created by arsha on 16-Feb-17.
+ * 
+ * Scheduler purpose: similarly to a first fit algorithm, it sequentially searches for hosts
+ * 		with enough free resources to allocate the next VM, but differently from a first fit approach
+ * 		it starts from the last checked hosts to achieve better performances (since the first hosts
+ * 		will likely have not so much free space). 
+ * Design choice: we used a global variable for keeping track of which was the last host checked for
+ * 		enough free resources. As long as a new VM arrives in the queue, the scheduling algorithm
+ * 		will check the hosts starting from that last host, and then it will continue until a full
+ * 		"round" is done: after the last host in the order it will start again from 0 and it will
+ * 		only stop at the host that comes before the stored global value.
+ * Worst-case temporal complexity: ...
  */
 public class NextFitVmAllocationPolicy extends VmAllocationPolicy {
 

@@ -12,6 +12,10 @@ import java.util.Map;
 
 /**
  * Created by arsha on 16-Feb-17.
+ * 
+ * Scheduler purpose: ... 
+ * Design choice: ...
+ * Worst-case temporal complexity: ...
  */
 public class EnergyEfficientVmAllocationPolicy extends VmAllocationPolicy {
 
