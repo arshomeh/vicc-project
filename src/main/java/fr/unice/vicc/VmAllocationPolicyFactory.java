@@ -6,9 +6,6 @@ import fr.unice.vicc.scheduler.*;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
-import fr.unice.vicc.scheduler.AntiAffinityVmAllocationPolicy;
-//import fr.unice.vicc.scheduler.DisasterRecoveryVmAllocationPolicy;
-
 
 /**
  * @author Fabien Hermenier
