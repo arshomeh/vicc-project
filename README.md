@@ -88,7 +88,7 @@ Switches can also fail and in such a circumstance, a lot of nodes become unavail
 
 ### Fault-tolerance for standalone VMs
 
-When a VM is not replicated (/e.g/ remote desktop scenario), fault-tolerance is obtained by ensuring that if the hosting node crashes, then, it must be possible to restart the VM elsewhere immediatly, on another suitable node. For example, [This figure](figs/1-resilient.png) depicts a viable mapping: if node 1 fails, VM1 can be restarted to N3, if node 2 fails, VM2 can be restarted to N3 and VM1 to N1. Finally, if N3 fails, VM4 can be restarted to N1. [This figure](figs/0-resilient.png) is not fully resilient: if N2 crashes, it is not possible to restart VM2 elsewhere.
+When a VM is not replicated (/e.g/ remote desktop scenario), fault-tolerance is obtained by ensuring that if the hosting node crashes, then, it must be possible to restart the VM elsewhere immediatly, on another suitable node. For example, [This figure](figs/1-resilient.png) depicts a viable mapping: if node 1 fails, VM1 can be restarted to N3, if node 2 fails, VM2 can be restarted to N3 and VM3 to N1. Finally, if N3 fails, VM4 can be restarted to N1. [This figure](figs/0-resilient.png) is not fully resilient: if N2 crashes, it is not possible to restart VM2 elsewhere.
 
 1. Implement a new scheduler (`ft` flag) that ensures the fault tolerance to 1 node failure for all the VM having an id that is a multiple of 10.
 
