@@ -29,6 +29,7 @@ public class VmAllocationPolicyFactory {
             case "ft": return new FaultToleranceVmAllocationPolicy(hosts);
             case "nextFit": return new NextFitVmAllocationPolicy(hosts);
             case "worstFit": return new WorstFitVmAllocationPolicy(hosts);
+            case "noViolations": return new NoViolationsVmAllocationPolicy(hosts); 
         }
         
         // no such policy
