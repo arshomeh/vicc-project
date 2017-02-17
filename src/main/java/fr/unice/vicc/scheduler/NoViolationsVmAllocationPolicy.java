@@ -1,10 +1,8 @@
 package fr.unice.vicc.scheduler;
 
 import org.cloudbus.cloudsim.Host;
-import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
-import org.cloudbus.cloudsim.power.PowerHost;
 import org.cloudbus.cloudsim.Pe;
 
 import java.util.HashMap;
@@ -34,7 +32,7 @@ public class NoViolationsVmAllocationPolicy extends VmAllocationPolicy {
 	private boolean createHost(Host host, Vm vm) {
 		if (host.vmCreate(vm)) {
             hoster.put(vm, host);
-            System.out.println("VM " + vm.getId() + " allocated on " + host.getId());
+            //System.out.println("VM " + vm.getId() + " allocated on " + host.getId());
             return true;
         }
 		return false; 
