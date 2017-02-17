@@ -14,8 +14,9 @@ import java.util.Map;
  * Created by arsha on 17-Feb-17.
  * 
  * Scheduler purpose: the purpose of this scheduler is to get as much revenues as possible.
- * Design choice: ... best fit + is it suitable
- * Worst-case temporal complexity: ...
+ * Design choice: We choose to combine Best fit and No Violation to obtain better revenue,
+ * by deceasing the energy consumption and the penalties
+ * Worst-case temporal complexity: The Complexity is O(n)
  */
 public class GreedyVmAllocationPolicy extends VmAllocationPolicy {
 
