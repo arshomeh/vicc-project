@@ -45,7 +45,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
         for (Host host : getHostList()) {
             if(host.vmCreate(vm)) {
                 hoster.put(vm, host);
-                System.out.println("VM " + host.getId() + " allocated");
+//                System.out.println("VM " + host.getId() + " allocated");
                 return true;
             }
         }
