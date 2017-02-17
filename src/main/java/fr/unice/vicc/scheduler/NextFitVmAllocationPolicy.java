@@ -14,7 +14,9 @@ import java.util.Map;
  */
 public class NextFitVmAllocationPolicy extends VmAllocationPolicy {
 
-    /** The map to track the server that host each running VM. */
+    /**
+     * The map to track the server that host each running VM.
+     */
     private Map<Vm, Host> hoster;
     int i;
 
@@ -40,17 +42,17 @@ public class NextFitVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-        int last = i;
 
-        while( i < getHostList().size() || i == last-1){
+        int last = i;
+        while (i < getHostList().size() || i == last - 1) {
             Host host = getHostList().get(i);
-            if(host.vmCreate(vm)) {
+            if (host.vmCreate(vm)) {
                 hoster.put(vm, host);
 //                System.out.println("VM " + host.getId() + " allocated");
                 return true;
             }
             i++;
-            if(i >= getHostList().size())
+            if (i >= getHostList().size())
                 i = 0;
         }
         // no appropriate host found!
@@ -60,7 +62,7 @@ public class NextFitVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
 
-        if(host.vmCreate(vm)) {
+        if (host.vmCreate(vm)) {
             hoster.put(vm, host);
             return true;
         }
@@ -84,8 +86,8 @@ public class NextFitVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public Host getHost(int vmId, int userId) {
 
-        for (Host h: getHostList()){
-            if (h.getVm(vmId,userId) != null){
+        for (Host h : getHostList()) {
+            if (h.getVm(vmId, userId) != null) {
                 return h;
             }
         }

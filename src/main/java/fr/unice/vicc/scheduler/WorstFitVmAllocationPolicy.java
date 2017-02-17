@@ -1,6 +1,6 @@
 package fr.unice.vicc.scheduler;
 
-import fr.unice.vicc.HostCompare;
+import fr.unice.vicc.WorstHostCompare;
 import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
@@ -39,10 +39,8 @@ public class WorstFitVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public boolean allocateHostForVm(Vm vm) {
     List<Host> host = getHostList();
-    host.sort(new HostCompare());
+    host.sort(new WorstHostCompare());
     Host best = host.get(0);
-        host.get(0).getAvailableMips();
-        host.get(0).getRam();
     if(best.vmCreate(vm)) {
         hoster.put(vm, best);
 //        System.out.println("VM " + best.getId() + " allocated");
