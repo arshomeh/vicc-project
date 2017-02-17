@@ -10,6 +10,9 @@
 
 ###noViolations
 
+We used checkAvailableMIPS() to check that the host has enough MIPS 
+for that VM, for VMs lifetime
+
 - Incomes:    12398.59€
 - Penalties:  0.00€
 - Energy:     2868.74€
