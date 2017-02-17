@@ -62,7 +62,7 @@ public class FaultToleranceVmAllocationPolicy extends VmAllocationPolicy {
     		if (originalHostId != host.getId()) {
     			if (host.allocatePesForVm(vm, vm.getCurrentRequestedMips())) { 
 					reserve.put(vm, host); 
-					System.out.println("VM " + vm.getId() + " is allocated on reserve " + host.getId());
+					//System.out.println("VM " + vm.getId() + " is allocated on reserve " + host.getId());
 					return true;
     			}
     		} 
@@ -81,12 +81,15 @@ public class FaultToleranceVmAllocationPolicy extends VmAllocationPolicy {
 		return false;  
 	}
 
-
 	@Override
 	public void deallocateHostForVm(Vm vm) {
-    	Host hostToRemove = vm.getHost();
-    	hostToRemove.vmDestroy(vm);
-    	hoster.remove(vm, hostToRemove);
+		if (vm.getId() % multiple == 0) {
+			reserve.get(vm).deallocatePesForVm(vm);
+			reserve.remove(vm);
+		}
+		Host toRemove = vm.getHost();
+		toRemove.vmDestroy(vm);
+		hoster.remove(vm, toRemove);
 	}
 
 	@Override
