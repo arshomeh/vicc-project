@@ -3,7 +3,6 @@ package fr.unice.vicc.scheduler;
 import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
-import org.cloudbus.cloudsim.power.PowerHost;
 
 import fr.unice.vicc.BestHostCompare;
 
@@ -15,7 +14,7 @@ import java.util.Map;
  * Created by arsha on 17-Feb-17.
  * 
  * Scheduler purpose: the purpose of this scheduler is to get as much revenues as possible.
- * Design choice: ... best fit + is it soutable
+ * Design choice: ... best fit + is it suitable
  * Worst-case temporal complexity: ...
  */
 public class GreedyVmAllocationPolicy extends VmAllocationPolicy {

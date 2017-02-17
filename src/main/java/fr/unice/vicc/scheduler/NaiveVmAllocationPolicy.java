@@ -1,12 +1,9 @@
 package fr.unice.vicc.scheduler;
 
 import org.cloudbus.cloudsim.Host;
-import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
-import org.cloudbus.cloudsim.VmSchedulerTimeShared;
 
-import sun.misc.VM;
 
 import java.util.HashMap;
 import java.util.List;
