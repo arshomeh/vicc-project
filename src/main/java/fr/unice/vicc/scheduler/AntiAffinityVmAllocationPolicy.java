@@ -31,26 +31,25 @@ public class AntiAffinityVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-    	// no two hosts from the same interval have to be allocated to the same VM
-        int value = vm.getId()% interval;
 
+        int value = vm.getId() % interval; // by hashing the vm id with the number of host we guarantee the anti affinity
         for (Host host : getHostList()) {
-//            System.out.println("VM " + vm.getId() + " in host " + host.getId());
-//            if (host.getId() == value){
+            if (value == host.getId() % interval) { //choose the host with id value
                 if (host.vmCreate(vm)) {
                     hoster.put(vm, host);
                     return true;
                 }
-//            }
+            }
         }
-            return false;
+        return false;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
 
-        int value = vm.getId()% interval;
-        System.out.println("VM " + vm.getId() + " in host " + host.getId());
+        int value = vm.getId() % interval;
+        if (value != host.getId() % interval)
+            return false;
 
         if(host.vmCreate(vm)) {
             hoster.put(vm, host);
