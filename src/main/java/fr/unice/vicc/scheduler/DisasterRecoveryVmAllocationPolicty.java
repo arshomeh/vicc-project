@@ -9,10 +9,10 @@ import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 
 /**
- * Disaster recovery allocation policy
+ * Disaster recovery allocation policy.
  * 
  * @author Manfredi Giordano
- * @version 6/2/2017
+ * @version 06/02/2017
  */
 public class DisasterRecoveryVmAllocationPolicty extends VmAllocationPolicy {
 
