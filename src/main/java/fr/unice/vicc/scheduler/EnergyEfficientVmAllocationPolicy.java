@@ -13,9 +13,14 @@ import java.util.Map;
 /**
  * Created by arsha on 16-Feb-17.
  * 
- * Scheduler purpose: the purpose of this scheduler is to ...
- * Design choice: ...
- * Worst-case temporal complexity: ...
+ * Scheduler purpose: the purpose of this scheduler is to consume as little energy as possible.
+ * 		The strategy we used is to allocate all the VMs in the smallest possible number of different
+ * 		hosts as in a Best-Fit scheduling algorithm.
+ * Design choice: the Best-Fit algorithm is implemented by directly implementing the {@link
+ * 		BestHostCompare#compare} method.
+ * Worst-case temporal complexity: the allocation here takes O(1) time complexity but it follows
+ * 		a sorting phase whose worst-case temporal complexity is N*log(N) where N is the number of
+ * 		hosts as from the official Java documentation.
  */
 public class EnergyEfficientVmAllocationPolicy extends VmAllocationPolicy {
 

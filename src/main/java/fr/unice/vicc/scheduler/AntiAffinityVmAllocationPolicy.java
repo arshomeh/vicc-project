@@ -21,7 +21,8 @@ import java.util.Map;
  * Design choice: the anti-affinity property is guaranteed by the modulo operation that let
  * 		us (try to) allocate a VM in the host with ID equal to the VM ID modulo the interval value
  * 		(e.g. modulo 100; for instance the VM with ID 315 will be allocated into the host with ID 15).
- * Worst-case temporal complexity: ...
+ * Worst-case temporal complexity: O(N) where N is the number of hosts since our implementation
+ * 		checks all the list of hosts in the worst case only to find the host with the right ID.
  */
 public class AntiAffinityVmAllocationPolicy extends VmAllocationPolicy {
 	

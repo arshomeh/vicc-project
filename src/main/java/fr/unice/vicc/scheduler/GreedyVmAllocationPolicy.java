@@ -5,12 +5,18 @@ import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
+import fr.unice.vicc.BestHostCompare;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by arsha on 17-Feb-17.
+ * 
+ * Scheduler purpose: the purpose of this scheduler is to get as much revenues as possible.
+ * Design choice: ...
+ * Worst-case temporal complexity: ...
  */
 public class GreedyVmAllocationPolicy extends VmAllocationPolicy {
 
@@ -61,26 +67,25 @@ public class GreedyVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public void deallocateHostForVm(Vm vm) {
-
-        Host toRemove = vm.getHost();
-        toRemove.vmDestroy(vm);
-        hoster.remove(vm, toRemove);
+        Host hostToRemove = vm.getHost();
+        hostToRemove.vmDestroy(vm);
+        hoster.remove(vm, hostToRemove);
     }
 
     @Override
     public Host getHost(Vm vm) {
-
         return vm.getHost();
     }
 
     @Override
     public Host getHost(int vmId, int userId) {
-
         for (Host h: getHostList()){
-            if (h.getVm(vmId,userId) != null){
+            if (h.getVm(vmId, userId) != null){
                 return h;
             }
         }
+        
+        // no such host found
         return null;
     }
 }

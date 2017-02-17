@@ -34,7 +34,8 @@ public class NoViolationsVmAllocationPolicy extends VmAllocationPolicy {
 			if (pe.getPeProvisioner().getAvailableMips() >= MIPScount)
 				return true; 
         }
-		//no available MIPS
+		
+		// no available MIPS
 		return false;	
 	}
 	
