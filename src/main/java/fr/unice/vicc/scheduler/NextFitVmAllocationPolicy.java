@@ -21,7 +21,8 @@ import java.util.Map;
  * 		will check the hosts starting from that last host, and then it will continue until a full
  * 		"round" is done: after the last host in the order it will start again from 0 and it will
  * 		only stop at the host that comes before the stored global value.
- * Worst-case temporal complexity: ...
+ * Worst-case temporal complexity: O(N) where N is the number of hosts since in the worst case
+ * 		every possible host will be checked for availability.
  */
 public class NextFitVmAllocationPolicy extends VmAllocationPolicy {
 

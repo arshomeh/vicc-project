@@ -19,7 +19,8 @@ import java.util.Map;
  * 		is to consider a linear combination of the two dimensions but to give more weight to the
  * 		host's available CPU than to available memory, as implemented in {@link WorstHostCompare#compare}
  * 		class. 
- * Worst-case temporal complexity: ...
+ * Worst-case temporal complexity: O(N) where N is the number of hosts since in the worst
+ * 		case all the list of hosts has to be checked.
  */
 public class WorstFitVmAllocationPolicy extends VmAllocationPolicy {
 

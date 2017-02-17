@@ -17,30 +17,28 @@ public class GreedyVmAllocationPolicy extends VmAllocationPolicy {
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
 
-    public GreedyVmAllocationPolicy(List<? extends Host> list) {
-
-        super(list);
+    public GreedyVmAllocationPolicy(List<? extends Host> hosts) {
+        super(hosts);
         hoster = new HashMap<>();
     }
 
     @Override
     protected void setHostList(List<? extends Host> hostList) {
-
         super.setHostList(hostList);
         hoster = new HashMap<>();
     }
 
     @Override
-    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
-        // no optimizations in the naive allocation
+    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> hosts) {
+        // no optimizations here
         return null;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-        // the first host in the host list having enough resources will be the one allocated
+        // the first host in the list having enough available resources will be the one allocated
         for (Host host : getHostList()) {
-            if(host.vmCreate(vm)) {
+            if (host.vmCreate(vm)) {
                 hoster.put(vm, host);
                 return true;
             }
@@ -52,11 +50,12 @@ public class GreedyVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
-
         if(host.vmCreate(vm)) {
             hoster.put(vm, host);
             return true;
         }
+        
+        // no such allocation possible
         return false;
     }
 
