@@ -30,6 +30,6 @@ public class WorstHostCompare implements Comparator<Host> {
 //        System.out.println("host 1  " + ram1 +" "+ cpu1 + " " + total1);
 //        System.out.println("host 2  " + ram2 +" "+ cpu2 + " " + total2);
 //        System.out.println("--------------------------------------------");
-        return (int)(total2 - total1);
+        return (int) (total2 - total1);
     }
 }

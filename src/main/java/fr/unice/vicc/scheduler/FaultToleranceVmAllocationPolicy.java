@@ -10,10 +10,18 @@ import org.cloudbus.cloudsim.VmAllocationPolicy;
 
 /**
  * Created by Leila K. on 01/02/2017
+ * 
+ * Scheduler purpose: the purpose of this scheduler is to ensure fault tolerance on the VMs
+ * 		meaning that ...
+ * Design choice: ...
+ * Worst-case temporal complexity: O(N^2) where N = number of hosts since for the VM with ID
+ * 		multiple of 10 there's need to reserve room in another host, so the host list has
+ * 		to be examined twice in the worst case.
  */
 public class FaultToleranceVmAllocationPolicy extends VmAllocationPolicy {
 	private Map<Vm, Host> hoster;
 	private Map<Vm, Host> reserve; 
+
     private final static int multiple = 10;
 
 	public FaultToleranceVmAllocationPolicy(List<? extends Host> hosts) {
@@ -73,11 +81,12 @@ public class FaultToleranceVmAllocationPolicy extends VmAllocationPolicy {
 		return false;  
 	}
 
+
 	@Override
 	public void deallocateHostForVm(Vm vm) {
-    	Host toRemove = vm.getHost();
-    	toRemove.vmDestroy(vm);
-    	hoster.remove(vm, toRemove);
+    	Host hostToRemove = vm.getHost();
+    	hostToRemove.vmDestroy(vm);
+    	hoster.remove(vm, hostToRemove);
 	}
 
 	@Override
@@ -92,11 +101,14 @@ public class FaultToleranceVmAllocationPolicy extends VmAllocationPolicy {
                 return h;
             }
         }
+        
+        // no such host
         return null;
 	}
 
 	@Override
 	public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
+		// nothing to do here
 		return null;
 	}
 

@@ -19,7 +19,8 @@ import org.cloudbus.cloudsim.VmAllocationPolicy;
  * Design choice: we used a global variable in order to keep trace of where the last allocation
  * 		happened, so that the next one could be done in the first available host belonging to the
  * 		other class (i.e. connected to the other switch with respect to the last used host).
- * Worst-case temporal complexity: ...
+ * Worst-case temporal complexity: O(N) where N is the number of hosts since in the worst case
+ * 		all the hosts in the list will be checked.
  * 
  * @author Manfredi Giordano
  * @version 06/02/2017
