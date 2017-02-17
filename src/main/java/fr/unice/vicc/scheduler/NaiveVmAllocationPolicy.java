@@ -20,9 +20,9 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
 
-    public NaiveVmAllocationPolicy(List<? extends Host> list) {
+    public NaiveVmAllocationPolicy(List<? extends Host> hosts) {
 
-        super(list);
+        super(hosts);
         hoster = new HashMap<>();
     }
 
@@ -34,7 +34,7 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
     }
 
     @Override
-    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> list) {
+    public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> hosts) {
     	// no optimizations in the naive allocation
         return null;
     }
@@ -45,47 +45,50 @@ public class NaiveVmAllocationPolicy extends VmAllocationPolicy {
         for (Host host : getHostList()) {
             if(host.vmCreate(vm)) {
                 hoster.put(vm, host);
-                System.out.println("VM " + host.getId() + " allocated");
+//              System.out.println(String.format("[+] Put VM %d in host %d", vm.getId(), host.getId()));
                 return true;
             }
         }
         
         // no appropriate host found!
+//        System.err.println(String.format("[-] Cannot allocate VM %d", vm.getId()));
         return false;
     }
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
-
-        if(host.vmCreate(vm)) {
+        if (host.vmCreate(vm)) {
             hoster.put(vm, host);
+//            System.out.println(String.format("[+] Allocated VM %d in host %d", vm.getId(), host.getId()));
             return true;
         }
+
+        // no appropriate host found
+        System.err.println(String.format("[-] Cannot allocate VM %d on host %d", vm.getId(), host.getId()));
         return false;
     }
 
     @Override
     public void deallocateHostForVm(Vm vm) {
-
-    	Host toRemove = vm.getHost();
-    	toRemove.vmDestroy(vm);
-    	hoster.remove(vm, toRemove);
+    	Host hostToRemove = vm.getHost();
+    	hostToRemove.vmDestroy(vm);
+    	hoster.remove(vm, hostToRemove);
     }
 
     @Override
     public Host getHost(Vm vm) {
-
         return vm.getHost();
     }
 
     @Override
     public Host getHost(int vmId, int userId) {
-
-        for (Host h: getHostList()){
-            if (h.getVm(vmId,userId) != null){
+        for (Host h: getHostList()) {
+            if (h.getVm(vmId,userId) != null) {
                 return h;
             }
         }
+
+        // no such host found
         return null;
     }
 }

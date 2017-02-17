@@ -9,19 +9,19 @@ import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 
 /**
- * Disaster recovery allocation policy.
+ * Energy-efficient scheduler.
  * 
  * @author Manfredi Giordano
- * @version 06/02/2017
+ * @version 12/02/2017
  */
-public class DisasterRecoveryVmAllocationPolicty extends VmAllocationPolicy {
+public class EnergyEfficientVmAllocationPolicy extends VmAllocationPolicy {
 
     /** The map to track the server that host each running VM. */
     private Map<Vm, Host> hoster;
 
-	public DisasterRecoveryVmAllocationPolicty(List<? extends Host> hosts) {
+	public EnergyEfficientVmAllocationPolicy(List<? extends Host> hosts) {
 		super(hosts);
-        hoster = new HashMap<>();
+		hoster = new HashMap<>();
 	}
 
 	@Override
