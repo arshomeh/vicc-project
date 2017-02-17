@@ -7,7 +7,7 @@ import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.power.PowerHost;
 
 import fr.unice.vicc.scheduler.AntiAffinityVmAllocationPolicy;
-//import fr.unice.vicc.scheduler.DisasterRecoveryVmAllocationPolicty;
+//import fr.unice.vicc.scheduler.DisasterRecoveryVmAllocationPolicy;
 
 
 /**
@@ -25,13 +25,14 @@ public class VmAllocationPolicyFactory {
         switch (id) {
             case "naive":  return new NaiveVmAllocationPolicy(hosts);
             case "antiAffinity":  return new AntiAffinityVmAllocationPolicy(hosts);
-            case "dr": return new DisasterRecoveryVmAllocationPolicty(hosts);
             case "ft": return new FaultToleranceVmAllocationPolicy(hosts);
             case "nextFit": return new NextFitVmAllocationPolicy(hosts);
             case "worstFit": return new WorstFitVmAllocationPolicy(hosts);
+            case "dr": return new DisasterRecoveryVmAllocationPolicy(hosts);
+            case "energy": return new EnergyEfficientVmAllocationPolicy(hosts);
+            case "greedy": return new GreedyVmAllocationPolicy(hosts);
+
         }
-        
-        // no such policy
         throw new IllegalArgumentException("No such policy '" + id + "'");
     }
 }
