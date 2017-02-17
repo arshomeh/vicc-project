@@ -6,8 +6,6 @@
 - Manfredi Giordano: manfredi.giordano@me.com
 - Arsak Megkrampian: sdi1100049@di.uoa.gr
 
-We liked this course. We have learned a lot of useful things.  
-
 ## Comments
 
 ###noViolations
