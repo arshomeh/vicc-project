@@ -14,7 +14,7 @@ import org.cloudbus.cloudsim.VmAllocationPolicy;
  * @author Manfredi Giordano
  * @version 06/02/2017
  */
-public class DisasterRecoveryVmAllocationPolicty extends VmAllocationPolicy {
+public class DisasterRecoveryVmAllocationPolicy extends VmAllocationPolicy {
 
 	/**
 	 * The map to track the server that host each running VM.
@@ -22,7 +22,7 @@ public class DisasterRecoveryVmAllocationPolicty extends VmAllocationPolicy {
 	private Map<Vm, Host> hoster;
 	int prev;
 
-	public DisasterRecoveryVmAllocationPolicty(List<? extends Host> list) {
+	public DisasterRecoveryVmAllocationPolicy(List<? extends Host> list) {
 
 		super(list);
 		hoster = new HashMap<>();
