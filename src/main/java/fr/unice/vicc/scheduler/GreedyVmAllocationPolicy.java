@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by arsha on 17-Feb-17.
  * 
  * Scheduler purpose: the purpose of this scheduler is to get as much revenues as possible.
- * Design choice: ...
+ * Design choice: ... best fit + is it soutable
  * Worst-case temporal complexity: ...
  */
 public class GreedyVmAllocationPolicy extends VmAllocationPolicy {
@@ -43,10 +43,14 @@ public class GreedyVmAllocationPolicy extends VmAllocationPolicy {
     @Override
     public boolean allocateHostForVm(Vm vm) {
         // the first host in the list having enough available resources will be the one allocated
-        for (Host host : getHostList()) {
-            if (host.vmCreate(vm)) {
-                hoster.put(vm, host);
-                return true;
+        List<Host> host = getHostList();
+        host.sort(new BestHostCompare());
+        for (Host host1 : host) {
+            if(host1.isSuitableForVm(vm)) {
+                if (host1.vmCreate(vm)) {
+                    hoster.put(vm, host1);
+                    return true;
+                }
             }
         }
 
