@@ -45,7 +45,7 @@ public class WorstFitVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm) {
-    	// get the ordered list of available hosts
+    	// get the list of available hosts, ordered with the criterion of "more available resources"
 	    List<Host> hosts = getHostList();
 	    hosts.sort(new WorstHostCompare());
 	    
@@ -63,6 +63,7 @@ public class WorstFitVmAllocationPolicy extends VmAllocationPolicy {
 
     @Override
     public boolean allocateHostForVm(Vm vm, Host host) {
+    	// nothing special here
         if (host.vmCreate(vm)) {
             hoster.put(vm, host);
             return true;
