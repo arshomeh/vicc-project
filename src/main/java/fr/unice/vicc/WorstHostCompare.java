@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Created by arsha on 16-Feb-17.
  */
-public class HostCompare implements Comparator<Host>{
+public class WorstHostCompare implements Comparator<Host> {
     @Override
     public int compare(Host h1, Host h2) {
 
